@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyboard Soundboard</title>
+</head>
+<body>
+    <h1>Press Any Key 🎹</h1>
+
+    <script>
+        // Key → Sound map
+        const soundMap = {
+            a: "sounds/meep.mp3",
+            s: "sounds/meep.mp3",
+            d: "sounds/meep.mp3",
+            f: "sounds/meep.mp3",
+            g: "sounds/meep.mp3",
+            h: "sounds/meep.mp3"
+        };
+
+        document.addEventListener("keydown", (event) => {
+            const key = event.key.toLowerCase();
+
+            if (soundMap[key]) {
+                const audio = new Audio(soundMap[key]);
+                audio.play();
+            }
+        });
+    </script>
+</body>
+</html>

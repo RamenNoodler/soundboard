@@ -16,14 +16,17 @@
             g: "sounds/meep.mp3",
             h: "sounds/meep.mp3"
         };
+const audioCache = {};
 
-        document.addEventListener("keydown", (event) => {
-            const key = event.key.toLowerCase();
+document.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
 
-            if (soundMap[key]) {
-                const audio = new Audio(soundMap[key]);
-                audio.play();
-            }
+    if (!audioCache[key]) {
+        audioCache[key] = new Audio(`sounds/${key}.mp3`);
+    }
+
+    audioCache[key].currentTime = 0;
+    audioCache[key].play();
         });
     </script>
 </body>

@@ -1,33 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Keyboard Soundboard</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            text-align: center;
+            font-family: Arial;
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .list {
+            margin-top: 30px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <h1>Press Any Key 🎹</h1>
 
-    <script>
-        // Key → Sound map
-        const soundMap = {
-            a: "sounds/meep.mp3",
-            s: "sounds/meep.mp3",
-            d: "sounds/meep.mp3",
-            f: "sounds/meep.mp3",
-            g: "sounds/meep.mp3",
-            h: "sounds/meep.mp3"
-        };
-const audioCache = {};
+<h1>Keyboard Soundboard 🎹</h1>
+<p>Press a key</p>
 
-document.addEventListener("keydown", (event) => {
-    const key = event.key.toLowerCase();
+<div class="info" id="info">Waiting for input...</div>
 
-    if (!audioCache[key]) {
-        audioCache[key] = new Audio(`sounds/${key}.mp3`);
+<div class="list">
+    <h3>Key Assignments:</h3>
+    <div>A → Kick</div>
+    <div>S → Snare</div>
+    <div>D → HiHat</div>
+    <div>F → Clap</div>
+    <div>1 → Airhorn</div>
+    <div>2 → Vine Boom</div>
+    <div>Space → Bass Drop</div>
+</div>
+
+<script>
+const soundMap = {
+    KeyA: ["Kick", "sounds/meep.mp3"],
+    KeyS: ["Snare", "sounds/meep.mp3"],
+    KeyD: ["HiHat", "sounds/meep.mp3"],
+    KeyF: ["Clap", "sounds/meep.mp3"],
+
+    Digit1: ["Airhorn", "sounds/meep.mp3"],
+    Digit2: ["Vine Boom", "sounds/meep.mp3"],
+
+    Space: ["Bass Drop", "sounds/meep.mp3"]
+};
+
+document.addEventListener("keydown", (e) => {
+    const entry = soundMap[e.code];
+
+    if (!entry) {
+        document.getElementById("info").innerText =
+            `${e.code} has no sound assigned`;
+        return;
     }
 
-    audioCache[key].currentTime = 0;
-    audioCache[key].play();
-        });
-    </script>
+    const [name, path] = entry;
+
+    const audio = new Audio(path);
+    audio.currentTime = 0;
+    audio.play().catch(err => console.log(err));
+
+    document.getElementById("info").innerText =
+        `${e.code} → ${name}`;
+});
+</script>
+
 </body>
 </html>

@@ -1,39 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>20 Pack Soundboard</title>
-<style>
-body {
-    background: #111;
-    color: white;
-    text-align: center;
-    font-family: Arial;
-}
-.status {
-    margin-top: 20px;
-    font-size: 22px;
-}
-.hint {
-    margin-top: 10px;
-    font-size: 14px;
-    opacity: 0.6;
-}
-</style>
-</head>
-<body>
-
-<h1>20 Category Soundboard 🎛</h1>
-
-<div class="status" id="status">
-Active Category: 1
-</div>
-
-<div class="hint">
-CTRL + 1–0 (Packs 1–10)  
-CTRL + Q–P (Packs 11–20)
-</div>
-
 <script>
 
 let activeCategory = 1;
@@ -82,10 +46,12 @@ function updateStatus() {
 
 document.addEventListener("keydown", (e) => {
 
-    // 🔁 Switch Category
-    if (e.ctrlKey && categorySwitchMap[e.code]) {
+    // 🔁 Switch Category (Ctrl + Shift + key)
+    if (e.ctrlKey && e.shiftKey && categorySwitchMap[e.code]) {
+        e.preventDefault(); // stops browser shortcut
         activeCategory = categorySwitchMap[e.code];
         updateStatus();
+        console.log("Switched to Pack", activeCategory);
         return;
     }
 
@@ -107,6 +73,3 @@ document.addEventListener("keydown", (e) => {
 updateStatus();
 
 </script>
-
-</body>
-</html>
